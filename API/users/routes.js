@@ -3,7 +3,12 @@
 const express = require('express')
 const router = express.Router();
 
-const {} = require("./handlers")
+const {addNewUser} = require("./handlers")
 const {} = require("./validators")
+
+
+
+router.post("/register", addNewUser)
+
 
 module.exports = router;
