@@ -103,4 +103,4 @@ dist
 # TernJS port file
 .tern-port
 
-data/profilebook.db3/
+data/db
