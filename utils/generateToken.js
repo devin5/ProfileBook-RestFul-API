@@ -3,11 +3,11 @@ const secrets = require("../secrets.js");
 
 module.exports = function generateToken(user) {
   const payload = {
-    username: user.username,
-    id: user.id
+    User_Email: user.User_Email,
+    User_ID: user.User_ID
   };
   const options = {
-    expiresIn: "7d"
+    expiresIn: "360d"
   };
   return jwtToken.sign(payload, secrets.jwtSecret, options);
 };
