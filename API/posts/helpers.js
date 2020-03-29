@@ -23,7 +23,7 @@ const getPostsByID = Post_ID => {
 const addPost = postObj => {
   return (
     db("posts")
-      .insert(postObj)
+      .insert(postObj, "id")
       //destructure out of the array as an array
       .then(([Post_ID]) => {
         //destructure out of the object to pass to filter
