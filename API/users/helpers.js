@@ -21,7 +21,7 @@ const getUserByfilter = filter => {
 const addUser = userObj => {
   return (
     db("users")
-      .insert(userObj)
+      .insert(userObj, "id")
       //destructure out of the array as an array
       .then(([User_ID]) => {
         //destructure out of the object to pass to filter
@@ -29,9 +29,21 @@ const addUser = userObj => {
       })
   );
 };
-
+// by email or ID
+const deleteUser = filter => {
+  return db("users").where(filter).del()
+}
+const updateUser = (User_ID, changes) => {
+  return db("users").where({User_ID}).update(changes, "id")
+}
+const allUsers = () => {
+  return db("users")
+}
 module.exports = {
   getUserByfilter,
   addUser,
-  GetByEmail
+  GetByEmail,
+  deleteUser,
+  updateUser,
+  allUsers
 };
