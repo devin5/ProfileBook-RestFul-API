@@ -3,6 +3,8 @@ const configureFunc = require("./middleware/ConfigureAPI")
 // const restricted = require("./middleware/restrict");
 const userRouter = require("./API/users/routes")
 const postRouter = require("./API/posts/routes")
+const commentRouter = require("./API/comments/routes")
+
 
 //Creates Server
 const server = express()
@@ -11,6 +13,8 @@ configureFunc(server)
 //Routers
 server.use("/profilebook/auth/users", userRouter)
 server.use("/profilebook/posts", postRouter)
+server.use("/profilebook/comments", commentRouter)
+
 
 
 
