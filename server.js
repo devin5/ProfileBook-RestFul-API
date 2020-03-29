@@ -2,19 +2,16 @@ const express = require("express")
 const configureFunc = require("./middleware/ConfigureAPI")
 // const restricted = require("./middleware/restrict");
 const userRouter = require("./API/users/routes")
+const likeRouter = require("./API/likes/routes")
 
 //Creates Server
 const server = express()
+
 //Configs **Json**Helmet**corse**Morgan***Logger**
 configureFunc(server)
 //Routers
 server.use("/profilebook/auth/users", userRouter)
-
-
-
-
-
-
+server.use("/profilebook/auth/likes", likeRouter)
 
 //Test route
 server.get("/",( req, res) => {
