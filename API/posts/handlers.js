@@ -85,34 +85,34 @@ const removePost = (req, res) => {
 //   const { id } = req.params
 //   const PostsAll = []
 
-Users.getUserPostsByUser_ID(id)
-  .then(PostIDsArray => {
-    PostIDsArray.forEach(UserPost => {
-      Posts.getPostsByID(UserPost.Post_ID)
-        .then(currentPost => {
-          currentPost.Comments = []
-          currentPost.Likes = []
-          Posts.getPostsLikes(Post.Post_ID)
-            .then(likes => {
-              currentPost.Likes.push(likes)
-            })
-            .catch(err => res.status(400).json({ Message: "error in getting likes", err }))
+// Users.getUserPostsByUser_ID(id)
+//   .then(PostIDsArray => {
+//     PostIDsArray.forEach(UserPost => {
+//       Posts.getPostsByID(UserPost.Post_ID)
+//         .then(currentPost => {
+//           currentPost.Comments = []
+//           currentPost.Likes = []
+//           Posts.getPostsLikes(Post.Post_ID)
+//             .then(likes => {
+//               currentPost.Likes.push(likes)
+//             })
+//             .catch(err => res.status(400).json({ Message: "error in getting likes", err }))
 
-          Posts.getPostsComments(Posts.Post_ID)
-            .then(comment => {
-              currentPost.Likes.push(comment)
-            })
-            .catch(err => {
-              res.status(400).json({ Message: "error in getting comments", err })
-            })
+//           Posts.getPostsComments(Posts.Post_ID)
+//             .then(comment => {
+//               currentPost.Likes.push(comment)
+//             })
+//             .catch(err => {
+//               res.status(400).json({ Message: "error in getting comments", err })
+//             })
 
-          PostsAll.push(currentPost)
-        })
-    })
+//           PostsAll.push(currentPost)
+//         })
+//     })
 
-    res.status(200).json({ PostsAll })
-  })
-  .catch(err => res.status(400).json(err))
+//     res.status(200).json({ PostsAll })
+//   })
+//   .catch(err => res.status(400).json(err))
 
 module.exports = {
   getPosts,
