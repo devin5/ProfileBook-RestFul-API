@@ -3,10 +3,10 @@
 const express = require('express')
 const router = express.Router();
 
-const {getComments, newComment, removeComment} = require("./handlers")
+const {GetCommentsByPost, newComment, removeComment} = require("./handlers")
 const {} = require("./validators")
 
-router.get("/:Comment_Post_ID", getComments);
+router.get("/:Comment_Post_ID", GetCommentsByPost);
 router.post("/",  newComment);
 router.delete("/:Comment_ID", removeComment);
 

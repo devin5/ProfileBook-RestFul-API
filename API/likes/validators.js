@@ -1,8 +1,6 @@
 const helper = require("./helpers")
 
-module.exports = {
- validateId
-  }
+
 
   const validateId = (req,res, next)=>{
     const {id} = req.params
@@ -17,3 +15,6 @@ module.exports = {
     })
     .catch(err=>res.status(500).json(err))
   }
+  module.exports = {
+    validateId
+     }

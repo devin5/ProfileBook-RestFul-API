@@ -1,13 +1,6 @@
 const Helper = require("./helpers")
 
-module.exports = {
-  getAllLikes,
-  getLikesByPostId,
-  getLikesByLikeId,
-  addLike,
-  deleteLike,
-  updateLike
-  }; 
+
 
  const getAllLikes = (req,res) =>{
    Helper.getAllLikes()
@@ -52,3 +45,11 @@ module.exports = {
    })
 
  }  
+
+ module.exports = {
+  getAllLikes,
+  getLikesByPostId,
+  addLike,
+  deleteLike,
+  updateLike
+  }; 
