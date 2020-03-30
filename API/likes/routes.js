@@ -4,13 +4,22 @@
 const express = require('express')
 const router = express.Router();
 
-const {getAllLikes, getLikesByPostId, addLike, deleteLike,updateLike} = require("./handlers")
-const {validateId} = require("./validators")
+const {getLikesByPostId, addLike,} = require("./handlers")
+const {validatePostID} = require("./validators")
 
-router.get("/", getAllLikes)
-router.get("/:id", validateId, getLikesByPostId)
-router.post("/:id", addLike)
-router.delete("/:id", validateId, deleteLike)
-router.put("/:id", validateId, updateLike)
+
+//My updated routes
+router.post("/:Like_Post_ID", validatePostID, addLike)
+router.get("/:Like_Post_ID", validatePostID, getLikesByPostId)
+
+
+
+// router.put("/:Like_ID",  updateLike)
+
+
+
+// router.get("/", getAllLikes)
+// router.delete("/:id", validateId, deleteLike)
+// router.put("/:id", validateId, updateLike)
 
 module.exports = router;

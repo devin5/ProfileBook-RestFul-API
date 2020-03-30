@@ -3,8 +3,8 @@ const Helper = require("./helpers");
 const GetCommentsByPost = (req, res) => {
   const { Comment_Post_ID } = req.params;
   Helper.getCommentsPostsByID(Comment_Post_ID)
-    .then(comms => {
-      res.status(200).json({ data: { comms } });
+    .then(comments => {
+      res.status(200).json({ data: { comments } });
     })
     .catch(err => {
       res.status(500).json({ message: err });
@@ -12,10 +12,11 @@ const GetCommentsByPost = (req, res) => {
 };
 
 const newComment = (req, res) => {
+  const {Comment_Post_ID} = req.params
   const comment = {
     Comment_Text: req.body.Comment_Text,
     Comment_User_ID: req.body.Comment_User_ID,
-    Comment_Post_ID: req.body.Comment_Post_ID
+    Comment_Post_ID: Comment_Post_ID
   };
   Helper.addComment(comment)
     .then(comment => {
@@ -38,10 +39,8 @@ const updateComment = (req, res) => {
   const { Comment_ID } = req.params;
   const comment = {
     Comment_Text: req.body.Comment_Text,
-    Comment_User_ID: req.body.Comment_User_ID,
-    Comment_Post_ID: req.body.Comment_Post_ID
   };
-  Helper.updateComments(user, Comment_ID)
+  Helper.updateComments(comment, Comment_ID)
     .then(() => {
       Helper.getCommentByID(Comment_ID)
         .then(comment => {

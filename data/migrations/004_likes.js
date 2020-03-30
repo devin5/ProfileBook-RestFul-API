@@ -2,11 +2,11 @@
 exports.up = function(knex) {
   return knex.schema
   .createTable("likes", tbl=>{
-      tbl.increments("Like_id")
+      tbl.increments("Like_ID")
 
       tbl
-      .timestamp("created_at")
-      .defaultTo(knex.fn.now())
+      .timestamp("Like_Time")
+      .notNullable().defaultTo(knex.fn.now());
 
       tbl
       .boolean("Like_Type")
@@ -14,7 +14,7 @@ exports.up = function(knex) {
 
       //foreign key(1)
       tbl
-      .integer("Like_Post_id")
+      .integer("Like_Post_ID")
       .unsigned()
       .notNullable()
       .references('Post_ID')
@@ -24,7 +24,7 @@ exports.up = function(knex) {
 
       //foreign key(2)
       tbl
-      .integer("Like_User_id")
+      .integer("Like_User_ID")
       .unsigned()
       .notNullable()
       .references('User_ID')

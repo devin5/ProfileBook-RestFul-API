@@ -54,6 +54,7 @@ const delUserByEmail = (req, res) => {
 };
 
 const updateUser = (req, res) => {
+  req.body.User_Password = hash(req.body.User_Password);
   const { User_ID } = req.params;
   const user = {
     User_First_Name: req.body.User_First_Name,

@@ -3,12 +3,17 @@
 const express = require('express')
 const router = express.Router();
 
-const {getComments, newComment, removeComment} = require("./handlers")
-const {} = require("./validators")
+const {GetCommentsByPost, newComment, removeComment, updateComment} = require("./handlers")
+const {validatePostID, validateCommentID} = require("./validators")
 
-router.get("/:Comment_Post_ID", getComments);
-router.post("/",  newComment);
-router.delete("/:Comment_ID", removeComment);
+
+router.post("/:Comment_Post_ID", validatePostID, newComment);
+
+router.get("/:Comment_Post_ID", validatePostID,  GetCommentsByPost);
+
+router.delete("/:Comment_ID", validateCommentID, removeComment);
+router.put("/:Comment_ID", validateCommentID, updateComment);
+
 
 
 // router.post("/register", validateRegistration, validateIsEmailTaken, register);

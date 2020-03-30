@@ -33,7 +33,7 @@ const updateComments = (changes, Comment_ID) => {
 }
 
 const removeComment = Comment_ID => {
-  return db("posts")
+  return db("comments")
     .where({ Comment_ID })
     .del()
 }

@@ -3,19 +3,16 @@
 const express = require('express')
 const router = express.Router();
 
-const { getPosts, getPostsByID, getPostsByFilter, addPost, updatePost, removePost, /*getPostsLikes, getPostsComments, getPostsAll*/ } = require("./handlers")
-// Import and apply this when restrict has been written
-// const {} = require("../../middleware/Restrict")
+const { getPosts, getPostsByUserID, addPost, updatePost, removePost} = require("./handlers")
 
-router.get("/", getPosts)
-router.get("/:id", getPostsByID)
-// router.get("/filter/:filter", getPostsByFilter)
-router.post("/", addPost)
-router.put("/:id", updatePost)
-router.delete("/:id", removePost)
+const {checkPostLength, validateID, checkPost, validatePostID} = require("./validators")
 
-// router.get("/:id/likes", getPostsLikes)
-// router.get("/:id/comments", getPostsComments)
-// router.get("/:id/all", getPostsAll)
+
+router.get("/", checkPostLength, getPosts)
+router.post("/:Post_User_ID", validateID, checkPost, addPost)
+router.get("/:Post_User_ID", validateID, getPostsByUserID)
+router.put("/:Post_ID", validatePostID,  updatePost)
+router.delete("/:Post_ID", validatePostID, removePost)
+
 
 module.exports = router;

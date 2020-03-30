@@ -1,127 +1,78 @@
-const Posts = require("./helpers")
+const Helper = require("./helpers");
 
 const getPosts = (req, res) => {
-  Posts.getPosts()
+  Helper.getPosts()
     .then(posts => {
-      res.status(200).json(posts)
+      res.status(200).json({
+        data: {
+          posts
+        }
+      });
     })
     .catch(err => {
-      res.status(400).json(err)
-    })
-}
+      res.status(500).json({ message: err });
+    });
+};
 
-const getPostsByID = (req, res) => {
-  Posts.getPostsByID(req.params.id)
-    .then(post => {
-      res.status(200).json(post)
+const getPostsByUserID = (req, res) => {
+  const {Post_User_ID} = req.params 
+  Helper.getPostByFilter({Post_User_ID})
+    .then(posts => {
+      res.status(200).json({data: {posts}});
     })
     .catch(err => {
-      res.status(400).json(err)
-    })
-}
-
-// const getPostsByFilter = (req, res) => {
-//   Posts.getPostsByFilter(req.params.filter)
-//     .then(posts => {
-//       res.status(200).json(posts)
-//     })
-//     .catch(err => {
-//       res.status(400).json(err)
-//     })
-// }
+      res.status(500).json({message: err});
+    });
+};
 
 const addPost = (req, res) => {
-  console.log(req.body)
-  Posts.addPost(req.body)
-    .then(posts => {
-      res.status(200).json(posts)
+  const { Post_User_ID } = req.params;
+  const Post = {
+    Post_Text: req.body.Post_Text,
+    Post_User_ID: Post_User_ID
+  };
+
+  Helper.addPost(Post)
+    .then(post => {
+      res.status(200).json({ data: {post}});
     })
     .catch(err => {
-      res.status(400).json(err)
-    })
-}
+      res.status(500).json({ message: err });
+    });
+};
 
 const updatePost = (req, res) => {
-  Posts.updatePost(req.body, req.params.id)
-    .then(posts => {
-      res.status(200).json(posts)
+  const {Post_ID} = req.params
+
+  const Post = {Post_Text: req.body.Post_Text}
+
+  Helper.updatePost(Post, Post_ID)
+    .then(([post]) => {
+      res.status(200).json({data: {post}});
     })
     .catch(err => {
-      res.status(400).json(err)
-    })
-}
+      res.status(500).json({message: err});
+    });
+};
 
 const removePost = (req, res) => {
-  Posts.removePost(req.params.id)
-    .then(posts => {
-      res.status(200).json(posts)
+  const {Post_ID} = req.params
+  
+  Helper.removePost(Post_ID)
+    .then(() => {
+      res.status(201).end();
     })
     .catch(err => {
-      res.status(400).json(err)
-    })
-}
+      res.status(500).json({message: err});
+    });
+};
 
-// const getPostsLikes = (req, res) => {
-//   Posts.getPostsLikes(req.params.id)
-//     .then(post => {
-//       res.status(200).json(post)
-//     })
-//     .catch(err => {
-//       res.status(400).json(err)
-//     })
-// }
 
-// const getPostsComments = (req, res) => {
-//   Posts.getPostsComments(req.params.id)
-//     .then(post => {
-//       res.status(200).json(post)
-//     })
-//     .catch(err => {
-//       res.status(400).json(err)
-//     })
-// }
-
-// const getPostsAll = (req, res) => {
-//   const { id } = req.params
-//   const PostsAll = []
-
-// Users.getUserPostsByUser_ID(id)
-//   .then(PostIDsArray => {
-//     PostIDsArray.forEach(UserPost => {
-//       Posts.getPostsByID(UserPost.Post_ID)
-//         .then(currentPost => {
-//           currentPost.Comments = []
-//           currentPost.Likes = []
-//           Posts.getPostsLikes(Post.Post_ID)
-//             .then(likes => {
-//               currentPost.Likes.push(likes)
-//             })
-//             .catch(err => res.status(400).json({ Message: "error in getting likes", err }))
-
-//           Posts.getPostsComments(Posts.Post_ID)
-//             .then(comment => {
-//               currentPost.Likes.push(comment)
-//             })
-//             .catch(err => {
-//               res.status(400).json({ Message: "error in getting comments", err })
-//             })
-
-//           PostsAll.push(currentPost)
-//         })
-//     })
-
-//     res.status(200).json({ PostsAll })
-//   })
-//   .catch(err => res.status(400).json(err))
 
 module.exports = {
   getPosts,
-  getPostsByID,
-  // getPostsByFilter,
+  getPostsByUserID,
   addPost,
   updatePost,
-  removePost,
-  // getPostsLikes,
-  // getPostsComments,
-  // getPostsAll
+  removePost
 };
