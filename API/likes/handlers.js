@@ -9,17 +9,24 @@ const Helper = require("./helpers")
  }
  //----------
  const getLikesByPostId = (req,res)=>{
-  const {id} = req.params
-  Helper.getLikesByPostId(id)
+  const {Like_Post_ID} = req.params
+  Helper.getLikesByPostId(Like_Post_ID)
   .then(like=>res.status(200).json(like))
   .catch(err=>res.status(500).json({message:err}))
  }
  //------------
   const addLike = (req,res)=>{
-    const {id} = req.params
-    const {Like_Time, Like_Type} = req.body
-    Helper.addLike({Like_Time, Like_Type, Like_Post_id: id})
-    .then(like=>res.status(201).json({message:"You liked a post"}))
+    const {Like_Post_ID} = req.params
+    const {Like_Type, Like_User_ID} = req.body
+
+    const like = {
+      Like_Type,
+      Like_Post_ID,
+      Like_User_ID
+    }
+
+    Helper.addLike(like)
+    .then(likeres => res.status(200).json({data: {likeres}}))
     .catch(err=>res.status(500).json({message:err}))
  }
  //-----------

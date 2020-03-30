@@ -1,4 +1,4 @@
-const db = require("../../data/KnexConfig")
+const db = require("../../data/KnexConfig");
 
 module.exports = {
   getAllLikes,
@@ -6,55 +6,58 @@ module.exports = {
   getLikesByLikeId,
   addLike,
   deleteLike,
-  updateLike  
-  };
+  updateLike
+};
 
-  function getAllLikes(){
-   return db("likes")
-  }
-  //--------------
-  
-  function getLikesByPostId(id){
-    return db("likes")
-    .select("*")    
-    .join('posts', 'posts_Post_ID', '=', 'likes.Like_Post_id')    
-    .where('Like_Post_id', '=', id)
-  }
-  //--------------
-  
-  function getLikesByLikeId(id){
-    return db("likes")
-    .where("Like_id", "=", id)    
-  }
-  //--------------
+function getAllLikes() {
+  return db("likes");
+}
+//--------------
 
-  async function addLike(like){
-     const [id] = await db("likes")
-    .insert(like, 'Like_id')
-     return getLikesByPostId(id)
-  }
-  //---------------
-  
-  function deleteLike(id){
-     return db("likes")
-     .where("Like_id", "=", id)
-     .del()
-  }
-  //----------------
+//we dont need join here just an array
 
-  function updateLike(id, changes){
-    return db("likes")
+// function getLikesByPostId(id){
+//   return db("likes")
+//   .select("*")
+//   .join('posts', 'posts_Post_ID', '=', 'likes.Like_Post_id')
+//   .where('Like_Post_id', '=', id)
+// }
+
+function getLikesByPostId(Like_Post_ID) {
+  return db("likes").where({ Like_Post_ID });
+}
+
+//--------------
+
+function getLikesByLikeId(id) {
+  return db("likes").where("Like_id", "=", id);
+}
+//--------------
+//I see what your doing here I just dont like making reducers that work this way
+// async function addLike(like){
+//    const [id] = await db("likes")
+//   .insert(like, 'Like_id')
+//    return getLikesByPostId(id)
+// }
+
+function addLike(like) {
+  return db("likes")
+    .insert(like)
+    .then(([id]) => {
+      return getLikesByLikeId(id);
+    });
+}
+//---------------
+
+function deleteLike(id) {
+  return db("likes")
     .where("Like_id", "=", id)
-    .update(changes)
-  }
+    .del();
+}
+//----------------
 
-
-
-
-
-
-
-
-
-
-
+function updateLike(id, changes) {
+  return db("likes")
+    .where("Like_id", "=", id)
+    .update(changes);
+}

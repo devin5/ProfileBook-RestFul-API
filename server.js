@@ -16,7 +16,7 @@ configureFunc(server)
 server.use("/profilebook/auth/users", userRouter)
 server.use("/profilebook/posts", postRouter)
 server.use("/profilebook/comments", commentRouter)
-server.use("/profilebook/auth/likes", likeRouter)
+server.use("/profilebook/likes", likeRouter)
 
 
 
