@@ -8,7 +8,7 @@ const { getPosts, getPostsByUserID, addPost, updatePost, removePost} = require("
 const {checkPostLength, validateID, checkPost, validatePostID} = require("./validators")
 
 
-router.get("/", checkPostLength, getPosts)
+router.get("/", /*checkPostLength,*/ getPosts)
 router.post("/:Post_User_ID", validateID, checkPost, addPost)
 router.get("/:Post_User_ID", validateID, getPostsByUserID)
 router.put("/:Post_ID", validatePostID,  updatePost)
