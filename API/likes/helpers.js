@@ -51,7 +51,7 @@ function addLike(like) {
 
 function deleteLike(id) {
   return db("likes")
-    .where("Like_id", "=", id)
+    .where("Like_ID", "=", id)
     .del();
 }
 //----------------

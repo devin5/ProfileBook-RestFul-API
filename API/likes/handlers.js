@@ -30,7 +30,7 @@ const Helper = require("./helpers")
     .catch(err=>res.status(500).json({message:err}))
  }
  //-----------
- const deleteLike = (req,res)=>{
+ const deleteLike = (req, res)=>{
   const {id} = req.params
   Helper.deleteLike(id)
   .then(deleted=>res.status(204).json({message:"Your like has been deleted"}))

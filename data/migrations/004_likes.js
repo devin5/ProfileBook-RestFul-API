@@ -31,6 +31,7 @@ exports.up = function(knex) {
       .inTable('users')
       .onDelete('CASCADE')
       .onUpdate('CASCADE');    
+      tbl.unique(['Like_User_ID', 'Like_Post_ID'])
 
   })
 };

@@ -4,14 +4,14 @@
 const express = require('express')
 const router = express.Router();
 
-const {getLikesByPostId, addLike,} = require("./handlers")
+const {getLikesByPostId, addLike, deleteLike} = require("./handlers")
 const {validatePostID} = require("./validators")
 
 
 //My updated routes
 router.post("/:Like_Post_ID", validatePostID, addLike)
 router.get("/:Like_Post_ID", validatePostID, getLikesByPostId)
-
+router.delete("/:id",  deleteLike)
 
 
 // router.put("/:Like_ID",  updateLike)
