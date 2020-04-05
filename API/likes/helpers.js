@@ -42,7 +42,7 @@ function getLikesByLikeId(id) {
 
 function addLike(like) {
   return db("likes")
-    .insert(like)
+    .insert(like, "id")
     .then(([id]) => {
       return getLikesByLikeId(id);
     });

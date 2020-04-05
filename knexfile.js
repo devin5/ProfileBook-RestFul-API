@@ -20,6 +20,23 @@ module.exports = {
       directory: "./data/seeds"
     }
   },
+  production: {
+       client: 'pg',
+       useNullAsDefault: true,
+       connection: process.env.DATABASE_URL,
+       pool: {
+         min: 2,
+         max: 10,
+       },
+       migrations: {
+           directory: './data/migrations',
+       },
+       seeds: {
+         directory: './data/seeds',
+       },
+     },
+   
+
   
 
 }

@@ -1,18 +1,19 @@
-const db = require("../../data/KnexConfig")
-
+const db = require("../../data/KnexConfig");
 
 const getComments = () => {
-  return db("comments")
-}
-
-const getCommentsPostsByID = Post_ID => {
-  return db("comments").where("Comment_Post_ID", "=" , Post_ID )
+  return db("comments");
 };
 
-const getCommentByID = Comment_ID => {
-  return db("comments").where({Comment_ID})
-}
+const getCommentsPostsByID = Post_ID => {
+  return db("comments")
+    .where("Comment_Post_ID", "=", Post_ID)
+    .join("users", "user_ID", "=", "Comment_User_ID");
+};
 
+
+const getCommentByID = Comment_ID => {
+  return db("comments").where({ Comment_ID });
+};
 
 const addComment = comm => {
   return (
@@ -29,22 +30,20 @@ const addComment = comm => {
 const updateComments = (changes, Comment_ID) => {
   return db("comments")
     .where({ Comment_ID })
-    .update(changes)
-}
+    .update(changes);
+};
 
 const removeComment = Comment_ID => {
   return db("comments")
     .where({ Comment_ID })
-    .del()
-}
-
+    .del();
+};
 
 module.exports = {
   getComments,
-  getCommentsPostsByID ,
+  getCommentsPostsByID,
   addComment,
   updateComments,
   removeComment,
   getCommentByID
-
-}
+};

@@ -28,11 +28,20 @@ const getPostsByID = Post_ID => {
 };
 
 
+
+// const getPosts = () => {
+//   return db("posts")
+//  .join("users" , "User_ID", "=", "Post_User_ID")
+
+
 const getPostByFilter = filter => {
   return db("posts")
     .select("*")
-    .where(filter);
+    .where(filter)
+    .join("users" , "User_ID", "=", "Post_User_ID")
 };
+
+
 
 const addPost = postObj => {
   return (
